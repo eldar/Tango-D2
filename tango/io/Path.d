@@ -1072,7 +1072,7 @@ struct PathParser(char_t = char)
         @property PathParser dup () const
         {
                 PathParser ret;
-                ret.fp = fp;
+                ret.fp = fp.dup;
                 ret.end_ = end_;
                 ret.ext_ = ext_;
                 ret.name_ = name_;
@@ -1827,7 +1827,7 @@ debug(UnitTest)
 {
         unittest
         {
-                auto p = parse ("/foo/bar/file.ext");
+                auto p = parse ("/foo/bar/file.ext".dup);
                 assert (p.equals("/foo/bar/file.ext"));
                 assert (p.folder == "/foo/bar/");
                 assert (p.path == "/foo/bar/");
