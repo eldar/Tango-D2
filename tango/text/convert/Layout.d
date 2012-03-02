@@ -26,6 +26,7 @@
 
 module tango.text.convert.Layout;
 
+private import  std.exception;
 private import  tango.core.Exception;
 
 private import  Utf = tango.text.convert.Utf;
@@ -192,8 +193,10 @@ class Layout(T)
 
         **********************************************************************/
 
-        public final T[] convert (const(T)[] formatStr, ...)
+        public final immutable(T)[] convert (const(T)[] formatStr, ...)
         {
+                T[] result;
+
                 version (DigitalMarsX64)
                 {
                     va_list ap;
@@ -202,10 +205,12 @@ class Layout(T)
 
                     scope(exit) va_end(ap);
 
-                    return convert (_arguments, ap, formatStr);
+                    result = convert (_arguments, ap, formatStr);
                 }
                 else
-                    return convert (_arguments, _argptr, formatStr);
+                    result = convert (_arguments, _argptr, formatStr);
+
+                return assumeUnique(result);
         }
 
         /**********************************************************************
