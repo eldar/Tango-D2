@@ -83,7 +83,7 @@ class FilePath : PathView
 
         ***********************************************************************/
 
-        static FilePath opCall (char[] filepath = null)
+        static FilePath opCall (const(char)[] filepath = null)
         {
                 return new FilePath (filepath);
         }
@@ -111,7 +111,7 @@ class FilePath : PathView
 
         ***********************************************************************/
 
-        this (char[] filepath = null)
+        this (const(char)[] filepath = null)
         {
                 set (filepath, true);
         }
