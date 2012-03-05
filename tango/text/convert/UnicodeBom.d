@@ -104,7 +104,9 @@ enum Encoding {
 
 class UnicodeBom(T) : BomSniffer
 {
-        static if (!is (T == char) && !is (T == wchar) && !is (T == dchar)) 
+        // should use Unqual really, but we don't want to use phobos just yet
+        static if (!is (T == char) && !is (T == wchar) && !is (T == dchar) &&
+                   !is (T == immutable(char)))
                     pragma (msg, "Template type must be char, wchar, or dchar");
 
         /***********************************************************************
